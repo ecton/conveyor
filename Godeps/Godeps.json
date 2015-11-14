@@ -1,0 +1,10 @@
+{
+	"ImportPath": "github.com/nilobject/conveyor",
+	"GoVersion": "go1.5.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/op/go-logging",
+			"Rev": "e8d5414f0947014548c2334044a0fac13187dfee"
+		}
+	]
+}
