@@ -11,7 +11,9 @@ func TestDestroy(t *testing.T) {
 }
 
 func TestMigrationWithBadInfo(t *testing.T) {
-	config().pg.port = 5431
+	oldPort := config().pg.port
+	config().pg.port = 1
 	err := migrateDatabaseDown()
 	assert.Error(t, err, "No error with bad connection string")
+	config().pg.port = oldPort
 }
