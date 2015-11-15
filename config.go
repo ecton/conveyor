@@ -9,15 +9,39 @@ import (
 // connect to the database
 type PostgreSQLConfiguration struct {
 	host         string
+	port         int
 	username     string
 	password     string
 	databaseName string
+	sslMode      string
 }
 
 // Configuration structure for conveyor
 // Contains all the settings needed to run the server
 type Configuration struct {
 	pg PostgreSQLConfiguration
+}
+
+var configuration Configuration
+
+func initializeConfiguration() {
+	if _, err := os.Stat("/etc/conveyor.json"); err == nil {
+		loadConfiguration("/etc/conveyor.json")
+	} else if _, err := os.Stat("conveyor.json"); err == nil {
+		loadConfiguration("conveyor.json")
+	} else {
+		// Default configuaration options
+		configuration = Configuration{
+			pg: PostgreSQLConfiguration{
+				databaseName: "conveyor_test",
+				username:     "conveyor",
+				password:     "testing",
+				host:         "127.0.0.1",
+				port:         5432,
+				sslMode:      "disable",
+			},
+		}
+	}
 }
 
 func loadConfiguration(path string) {
@@ -32,21 +56,6 @@ func loadConfiguration(path string) {
 	}
 }
 
-var configuration Configuration
-
-func initializeConfiguration() {
-	if _, err := os.Stat("/etc/conveyor.json"); err == nil {
-		loadConfiguration("/etc/conveyor.json")
-	} else if _, err := os.Stat("conveyor.json"); err == nil {
-		loadConfiguration("conveyor.json")
-	} else {
-		// Default configuaration options
-		configuration = Configuration{
-			pg: PostgreSQLConfiguration{
-				username: "testuser",
-				password: "testing",
-				host:     "localhost",
-			},
-		}
-	}
+func config() *Configuration {
+	return &configuration
 }

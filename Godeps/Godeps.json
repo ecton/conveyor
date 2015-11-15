@@ -3,6 +3,31 @@
 	"GoVersion": "go1.5.1",
 	"Deps": [
 		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-61-g83c4f41",
+			"Rev": "83c4f410d0aed80a0f44bac6a576a7f2435791f3"
+		},
+		{
+			"ImportPath": "github.com/mattes/migrate/driver",
+			"Comment": "v1.2.0-62-g8fe1a56",
+			"Rev": "8fe1a56731417a30670ef230ec6813896ee7a48d"
+		},
+		{
+			"ImportPath": "github.com/mattes/migrate/file",
+			"Comment": "v1.2.0-62-g8fe1a56",
+			"Rev": "8fe1a56731417a30670ef230ec6813896ee7a48d"
+		},
+		{
+			"ImportPath": "github.com/mattes/migrate/migrate",
+			"Comment": "v1.2.0-62-g8fe1a56",
+			"Rev": "8fe1a56731417a30670ef230ec6813896ee7a48d"
+		},
+		{
+			"ImportPath": "github.com/mattes/migrate/pipe",
+			"Comment": "v1.2.0-62-g8fe1a56",
+			"Rev": "8fe1a56731417a30670ef230ec6813896ee7a48d"
+		},
+		{
 			"ImportPath": "github.com/op/go-logging",
 			"Rev": "e8d5414f0947014548c2334044a0fac13187dfee"
 		}
