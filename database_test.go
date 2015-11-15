@@ -14,6 +14,8 @@ func TestMigrationWithBadInfo(t *testing.T) {
 	config().pg.port = 1
 	err := migrateDatabaseDown()
 	assert.Error(t, err, "No error with bad connection string")
+	err = migrateDatabaseUp()
+	assert.Error(t, err, "No error with bad connection string")
 	initializeConfiguration()
 }
 
