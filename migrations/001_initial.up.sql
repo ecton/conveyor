@@ -1,7 +1,17 @@
+CREATE TABLE infrastructures (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE servers (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  infrastructure_id INTEGER NOT NULL REFERENCES infrastructures(id)
+);
 
 CREATE TABLE workers (
     id BIGSERIAL PRIMARY KEY,
-    server TEXT NOT NULL,
+    server_id INTEGER NOT NULL REFERENCES servers(id),
     pid INTEGER NOT NULL,
     attributes JSONB NOT NULL DEFAULT '{}'::JSONB,
     first_checked_in TIMESTAMP NOT NULL DEFAULT NOW(),
