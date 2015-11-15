@@ -1,8 +1,9 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
+
+	"github.com/jmoiron/sqlx"
 
 	_ "github.com/nilobject/conveyor/Godeps/_workspace/src/github.com/lib/pq"
 	_ "github.com/nilobject/conveyor/Godeps/_workspace/src/github.com/mattes/migrate/driver/postgres"
@@ -13,8 +14,8 @@ func dbURI() string {
 	return fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=%v", config().pg.username, config().pg.password, config().pg.host, config().pg.port, config().pg.databaseName, config().pg.sslMode)
 }
 
-func db() (*sql.DB, error) {
-	return sql.Open("postgres", dbURI())
+func db() (*sqlx.DB, error) {
+	return sqlx.Open("postgres", dbURI())
 }
 
 func migrateDatabaseUp() error {
