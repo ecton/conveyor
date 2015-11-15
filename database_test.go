@@ -11,9 +11,22 @@ func TestDestroy(t *testing.T) {
 }
 
 func TestMigrationWithBadInfo(t *testing.T) {
-	oldPort := config().pg.port
 	config().pg.port = 1
 	err := migrateDatabaseDown()
 	assert.Error(t, err, "No error with bad connection string")
-	config().pg.port = oldPort
+	initializeConfiguration()
+}
+
+func TestConnection(t *testing.T) {
+	db, _ := db()
+	err := db.Ping()
+	assert.NoError(t, err, "Error connecting to database")
+}
+
+func TestConnectionWithBadInfo(t *testing.T) {
+	config().pg.port = 1
+	db, _ := db()
+	err := db.Ping()
+	assert.Error(t, err, "No error with bad connection string")
+	initializeConfiguration()
 }
