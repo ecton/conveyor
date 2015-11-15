@@ -10,11 +10,16 @@ func TestDestroy(t *testing.T) {
 	assert.NoError(t, err, "Error migrating up")
 }
 
-func TestMigrationWithBadInfo(t *testing.T) {
+func TestDownMigrationWithBadInfo(t *testing.T) {
 	config().pg.port = 1
 	err := migrateDatabaseDown()
 	assert.Error(t, err, "No error with bad connection string")
-	err = migrateDatabaseUp()
+	initializeConfiguration()
+}
+
+func TestUpMigrationWithBadInfo(t *testing.T) {
+	config().pg.port = 1
+	err := migrateDatabaseUp()
 	assert.Error(t, err, "No error with bad connection string")
 	initializeConfiguration()
 }

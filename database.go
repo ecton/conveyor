@@ -18,7 +18,6 @@ func db() (*sql.DB, error) {
 }
 
 func migrateDatabaseUp() error {
-	logger().Info("Connection URL: %v", dbURI())
 	allErrors, ok := migrate.UpSync(dbURI(), "./migrations")
 	if !ok {
 		return fmt.Errorf("Error performing migrations: %v", allErrors)
