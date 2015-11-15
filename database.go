@@ -13,25 +13,23 @@ func dbURI() string {
 	return fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=%v", config().pg.username, config().pg.password, config().pg.host, config().pg.port, config().pg.databaseName, config().pg.sslMode)
 }
 
-func db() *sql.DB {
-	db, err := sql.Open("postgres", dbURI())
-	if err != nil {
-		logger().Fatalf("Error connecting to database: %v", err)
-	}
-	return db
+func db() (*sql.DB, error) {
+	return sql.Open("postgres", dbURI())
 }
 
-func migrateDatabaseUp() {
+func migrateDatabaseUp() error {
 	logger().Info("Connection URL: %v", dbURI())
 	allErrors, ok := migrate.UpSync(dbURI(), "./migrations")
 	if !ok {
-		logger().Fatalf("Error performing migrations: %v", allErrors)
+		return fmt.Errorf("Error performing migrations: %v", allErrors)
 	}
+	return nil
 }
 
-func migrateDatabaseDown() {
+func migrateDatabaseDown() error {
 	allErrors, ok := migrate.DownSync(dbURI(), "./migrations")
 	if !ok {
-		logger().Fatalf("Error performing migrations: %v", allErrors)
+		return fmt.Errorf("Error performing migrations: %v", allErrors)
 	}
+	return nil
 }
